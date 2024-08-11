@@ -1,0 +1,33 @@
+# VS Things
+.vs/
+*.vscode/
+*.user
+*.suo
+
+*.sln
+*.csproj.user
+
+bin/
+obj/
+
+*.rsuser
+*.resharper
+*.sln.dotSettings
+
+.DS_Store
+Thumbs.db
+
+*.lock.json
+
+# NuGet Packages
+packages/
+
+# Temp
+*.log
+*.tmp
+*.temp
+*.pid
+*.tar.gz
+
+# Backup
+*_backup.*

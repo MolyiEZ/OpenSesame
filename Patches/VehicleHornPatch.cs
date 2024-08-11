@@ -20,13 +20,16 @@ namespace Molyi.OpenSesame.Patches
 	{
 		private static readonly ClientStaticMethod<uint> SendVehicleHorn = ClientStaticMethod<uint>.Get(VehicleManager.ReceiveVehicleHorn);
 
-		private static Lazy<IPluginAccessor<OpenSesamePlugin>> m_PluginAccessor = null!;
-		private static IEventBus m_EventBus => m_PluginAccessor.Value.Instance?.EventBus!;
-		private static IUnturnedUserDirectory m_UserDirectory => m_PluginAccessor.Value.Instance?.LifetimeScope.Resolve<IUnturnedUserDirectory>()!;
+		private static OpenSesamePlugin m_Plugin = null!;
+		private static IEventBus m_EventBus => m_Plugin.EventBus!;
+		private static IUnturnedUserDirectory m_UserDirectory = null!;
 
-		public VehicleHornPatch(Lazy<IPluginAccessor<OpenSesamePlugin>> pluginAccessor)
+		public VehicleHornPatch(
+			IPluginAccessor<OpenSesamePlugin> plugin,
+			IUnturnedUserDirectory userDirectory)
 		{
-			m_PluginAccessor = pluginAccessor;
+			m_Plugin = plugin.Instance!;
+			m_UserDirectory = userDirectory;
 		}
 
 		[HarmonyPatch(typeof(VehicleManager))]
@@ -44,6 +47,6 @@ namespace Molyi.OpenSesame.Patches
 			return false;
 		}
 
-		public static async void SendEvent(UnturnedVehicleHornEvent @event) => await m_EventBus.EmitAsync(m_PluginAccessor.Value.Instance!, null, @event);
+		public static async void SendEvent(UnturnedVehicleHornEvent @event) => await m_EventBus.EmitAsync(m_Plugin, null, @event);
 	}
 }

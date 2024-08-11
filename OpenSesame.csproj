@@ -2,19 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>openmod openmod-plugin unturned</PackageTags>
-    <AssemblyName>Molyi.OpenSesame</AssemblyName>
-    <RootNamespace>Molyi.OpenSesame</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateNugetPackage>true</GenerateNugetPackage>
-    <Product>OpenSesame</Product>
-    <Version>1.0.0</Version>
+    <AssemblyName>Molyi.OpenSesame</AssemblyName>
+    <RootNamespace>Molyi.OpenSesame</RootNamespace>
     <PackageId>Molyi.OpenSesame</PackageId>
-    <Description></Description>
-    <Nullable>disable</Nullable>
+    <Product>OpenSesame</Product>
+    <Authors>Molyi</Authors>
+    <Description>Unturned OpenMod Plugin. Open gates automatically with your car.</Description>
+    <RepositoryUrl>https://github.com/MolyiEZ/OpenSesame</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/MolyiEZ/OpenSesame</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <NoWarn>$(NoWarn);NU1701;NU1702;CS0436</NoWarn>
+    <LangVersion>latest</LangVersion>
+    <Version>1.0.0</Version>
     <InformationalVersion>1.0.0</InformationalVersion>
     <PackageVersion>1.0.0</PackageVersion>
   </PropertyGroup>

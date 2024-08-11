@@ -16,26 +16,19 @@ using UnityEngine;
 
 namespace Molyi.OpenSesame.Events
 {
-	public class VehicleHornEvent : IEventListener<UnturnedVehicleHornEvent>, IEventListener<UnturnedPlayerDeathEvent>, IEventListener<UnturnedPlayerDisconnectedEvent>
+	public class VehicleHornEvent(
+		IConfiguration configuration,
+		IPermissionChecker permissionChecker,
+		IStringLocalizer stringLocalizer) : IEventListener<UnturnedVehicleHornEvent>, IEventListener<UnturnedPlayerDeathEvent>, IEventListener<UnturnedPlayerDisconnectedEvent>
 	{
 		private readonly string imgUrl = "https://imgur.com/GDwj1Tk.png";
-		private static Dictionary<CSteamID, BarricadeDrop> playerHorn = new Dictionary<CSteamID, BarricadeDrop>();
-		private readonly IPermissionChecker m_PermissionChecker;
-		private readonly IStringLocalizer m_StringLocalizer;
-		private readonly IConfiguration m_Configuration;
-
-		public VehicleHornEvent(
-			IConfiguration configuration,
-			IPermissionChecker permissionChecker,
-			IStringLocalizer stringLocalizer)
-		{
-			m_PermissionChecker = permissionChecker;
-			m_StringLocalizer = stringLocalizer;
-			m_Configuration = configuration;
-		}
+		private static readonly Dictionary<CSteamID, BarricadeDrop> playerHorn = [];
+		private readonly IPermissionChecker m_PermissionChecker = permissionChecker;
+		private readonly IStringLocalizer m_StringLocalizer = stringLocalizer;
+		private readonly IConfiguration m_Configuration = configuration;
 
 		[EventListener(Priority = EventListenerPriority.Lowest)]
-		public async Task HandleEventAsync(object sender, UnturnedVehicleHornEvent @event)
+		public async Task HandleEventAsync(object? sender, UnturnedVehicleHornEvent @event)
 		{
 			UnturnedUser uUser = @event.User;
 			InteractableVehicle iVehicle = @event.Vehicle;
@@ -43,8 +36,7 @@ namespace Molyi.OpenSesame.Events
 			bool isCancelled = m_Configuration.GetSection("cancel_horn").Get<bool>();
 
 			if (await m_PermissionChecker.CheckPermissionAsync(uUser, m_Configuration.GetSection("permission_horn").Get<string>()!) != PermissionGrantResult.Grant) return;
-			BarricadeDrop bDrop;
-			if(playerHorn.TryGetValue(uUser.SteamId, out bDrop))
+			if (playerHorn.TryGetValue(uUser.SteamId, out BarricadeDrop bDrop))
 			{
 				playerHorn.Remove(uUser.SteamId);
 				if (bDrop == null)
@@ -53,7 +45,7 @@ namespace Molyi.OpenSesame.Events
 					return;
 				}
 
-				if(Vector3.Distance(bDrop.GetServersideData().point, uUser.Player.Player.transform.position) > distanceAction)
+				if (Vector3.Distance(bDrop.GetServersideData().point, uUser.Player.Player.transform.position) > distanceAction)
 				{
 					await uUser.PrintMessageAsync(m_StringLocalizer["internal:not_in_distance"], System.Drawing.Color.White, true, imgUrl);
 					return;
@@ -65,8 +57,7 @@ namespace Molyi.OpenSesame.Events
 				return;
 			}
 
-			RaycastHit hit;
-			Physics.Raycast(new Ray(iVehicle.transform.position, iVehicle.transform.forward), out hit, distanceAction, RayMasks.BLOCK_COLLISION);
+			Physics.Raycast(new Ray(iVehicle.transform.position, iVehicle.transform.forward), out RaycastHit hit, distanceAction, RayMasks.BLOCK_COLLISION);
 			Transform hitTransform = hit.transform;
 			if (hitTransform == null)
 			{
@@ -87,14 +78,14 @@ namespace Molyi.OpenSesame.Events
 		}
 
 		[EventListener(Priority = EventListenerPriority.Highest)]
-		public Task HandleEventAsync(object sender, UnturnedPlayerDeathEvent @event)
+		public Task HandleEventAsync(object? sender, UnturnedPlayerDeathEvent @event)
 		{
 			AsyncHelper.Schedule("OpenSesame.PlayerDeath", async () => playerHorn.Remove(@event.Player.SteamId));
 			return Task.CompletedTask;
 		}
 
 		[EventListener(Priority = EventListenerPriority.Highest)]
-		public Task HandleEventAsync(object sender, UnturnedPlayerDisconnectedEvent @event)
+		public Task HandleEventAsync(object? sender, UnturnedPlayerDisconnectedEvent @event)
 		{
 			AsyncHelper.Schedule("OpenSesame.PlayerDeath", async () => playerHorn.Remove(@event.Player.SteamId));
 			return Task.CompletedTask;

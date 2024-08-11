@@ -4,14 +4,17 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>openmod openmod-plugin unturned</PackageTags>
+    <AssemblyName>Molyi.OpenSesame</AssemblyName>
     <RootNamespace>Molyi.OpenSesame</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateNugetPackage>true</GenerateNugetPackage>
     <Product>OpenSesame</Product>
-    <Nullable>enable</Nullable>
+    <Version>1.0.0</Version>
+    <PackageId>Molyi.OpenSesame</PackageId>
+    <Description></Description>
+    <Nullable>disable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <NoWarn>$(NoWarn);NU1701;NU1702;CS0436</NoWarn>
-    <Version>0.1.0</Version>
     <InformationalVersion>1.0.0</InformationalVersion>
     <PackageVersion>1.0.0</PackageVersion>
   </PropertyGroup>

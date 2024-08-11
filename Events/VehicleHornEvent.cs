@@ -35,7 +35,7 @@ namespace Molyi.OpenSesame.Events
 		}
 
 		[EventListener(Priority = EventListenerPriority.Lowest)]
-		public async Task HandleEventAsync(object? sender, UnturnedVehicleHornEvent @event)
+		public async Task HandleEventAsync(object sender, UnturnedVehicleHornEvent @event)
 		{
 			UnturnedUser uUser = @event.User;
 			InteractableVehicle iVehicle = @event.Vehicle;
@@ -87,14 +87,14 @@ namespace Molyi.OpenSesame.Events
 		}
 
 		[EventListener(Priority = EventListenerPriority.Highest)]
-		public Task HandleEventAsync(object? sender, UnturnedPlayerDeathEvent @event)
+		public Task HandleEventAsync(object sender, UnturnedPlayerDeathEvent @event)
 		{
 			AsyncHelper.Schedule("OpenSesame.PlayerDeath", async () => playerHorn.Remove(@event.Player.SteamId));
 			return Task.CompletedTask;
 		}
 
 		[EventListener(Priority = EventListenerPriority.Highest)]
-		public Task HandleEventAsync(object? sender, UnturnedPlayerDisconnectedEvent @event)
+		public Task HandleEventAsync(object sender, UnturnedPlayerDisconnectedEvent @event)
 		{
 			AsyncHelper.Schedule("OpenSesame.PlayerDeath", async () => playerHorn.Remove(@event.Player.SteamId));
 			return Task.CompletedTask;

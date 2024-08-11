@@ -20,15 +20,17 @@ namespace Molyi.OpenSesame.Patches
 	{
 		private static readonly ClientStaticMethod<uint> SendVehicleHorn = ClientStaticMethod<uint>.Get(VehicleManager.ReceiveVehicleHorn);
 
-		private static OpenSesamePlugin m_Plugin = null!;
-		private static IEventBus m_EventBus => m_Plugin.EventBus!;
-		private static IUnturnedUserDirectory m_UserDirectory = null!;
+		private static IPluginAccessor<OpenSesamePlugin> m_PluginAccessor;
+		private static IEventBus m_EventBus;
+		private static IUnturnedUserDirectory m_UserDirectory;
 
 		public VehicleHornPatch(
-			IPluginAccessor<OpenSesamePlugin> plugin,
+			IPluginAccessor<OpenSesamePlugin> pluginAccessor,
+			IEventBus eventBus,
 			IUnturnedUserDirectory userDirectory)
 		{
-			m_Plugin = plugin.Instance!;
+			m_PluginAccessor = pluginAccessor;
+			m_EventBus = eventBus;
 			m_UserDirectory = userDirectory;
 		}
 
@@ -47,6 +49,6 @@ namespace Molyi.OpenSesame.Patches
 			return false;
 		}
 
-		public static async void SendEvent(UnturnedVehicleHornEvent @event) => await m_EventBus.EmitAsync(m_Plugin, null, @event);
+		public static async void SendEvent(UnturnedVehicleHornEvent @event) => await m_EventBus.EmitAsync(m_PluginAccessor.Instance, null, @event);
 	}
 }

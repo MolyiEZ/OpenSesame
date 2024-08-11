@@ -6,12 +6,12 @@ using OpenMod.Unturned.Plugins;
 using OpenMod.API.Plugins;
 using OpenMod.Unturned.Users;
 using OpenMod.API.Permissions;
-using OpenSesame.Interfaces;
+using Molyi.OpenSesame.Interfaces;
 
 // For more, visit https://openmod.github.io/openmod-docs/devdoc/guides/getting-started.html
 
 [assembly: PluginMetadata("Molyi.OpenSesame", Author = "Molyi", DisplayName = "OpenSesame")]
-namespace Molyi.OpenSesamePlugin
+namespace Molyi.OpenSesame
 {
 	public class OpenSesamePlugin : OpenModUnturnedPlugin
     {

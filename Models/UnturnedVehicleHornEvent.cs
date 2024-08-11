@@ -3,7 +3,7 @@ using OpenMod.Core.Eventing;
 using OpenMod.Unturned.Users;
 using SDG.Unturned;
 
-namespace OpenSesame.Models
+namespace Molyi.OpenSesame.Models
 {
 	public class UnturnedVehicleHornEvent : Event, ICancellableEvent
 	{

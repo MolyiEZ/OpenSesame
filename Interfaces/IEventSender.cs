@@ -1,8 +1,8 @@
-﻿using OpenMod.API.Ioc;
-using OpenSesame.Models;
+﻿using Molyi.OpenSesame.Models;
+using OpenMod.API.Ioc;
 using System;
 
-namespace OpenSesame.Interfaces
+namespace Molyi.OpenSesame.Interfaces
 {
 	[Service]
 	public interface IEventSender

@@ -1,17 +1,18 @@
 ﻿using Autofac;
 using HarmonyLib;
 using Microsoft.Extensions.DependencyInjection;
+using Molyi.OpenSesame.Interfaces;
+using Molyi.OpenSesame;
 using OpenMod.API.Eventing;
 using OpenMod.API.Ioc;
 using OpenMod.API.Plugins;
 using OpenMod.Unturned.Users;
-using OpenSesame.Interfaces;
-using OpenSesame.Models;
 using SDG.NetTransport;
 using SDG.Unturned;
 using System;
+using Molyi.OpenSesame.Models;
 
-namespace Molyi.OpenSesamePlugin.Patches
+namespace Molyi.OpenSesame.Patches
 {
 	[HarmonyPatch]
 	[ServiceImplementation(Lifetime = ServiceLifetime.Singleton)]

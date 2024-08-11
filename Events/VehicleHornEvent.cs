@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using Molyi.OpenSesame.Models;
 using OpenMod.API.Eventing;
 using OpenMod.API.Permissions;
 using OpenMod.Core.Eventing;
@@ -7,14 +8,13 @@ using OpenMod.Core.Helpers;
 using OpenMod.Unturned.Players.Connections.Events;
 using OpenMod.Unturned.Players.Life.Events;
 using OpenMod.Unturned.Users;
-using OpenSesame.Models;
 using SDG.Unturned;
 using Steamworks;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Molyi.OpenSesamePlugin.Events
+namespace Molyi.OpenSesame.Events
 {
 	public class VehicleHornEvent : IEventListener<UnturnedVehicleHornEvent>, IEventListener<UnturnedPlayerDeathEvent>, IEventListener<UnturnedPlayerDisconnectedEvent>
 	{

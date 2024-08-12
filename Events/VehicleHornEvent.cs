@@ -4,7 +4,6 @@ using Molyi.OpenSesame.Models;
 using OpenMod.API.Eventing;
 using OpenMod.API.Permissions;
 using OpenMod.Core.Eventing;
-using OpenMod.Core.Helpers;
 using OpenMod.Unturned.Players.Connections.Events;
 using OpenMod.Unturned.Players.Life.Events;
 using OpenMod.Unturned.Users;
@@ -80,14 +79,14 @@ namespace Molyi.OpenSesame.Events
 		[EventListener(Priority = EventListenerPriority.Highest)]
 		public Task HandleEventAsync(object? sender, UnturnedPlayerDeathEvent @event)
 		{
-			AsyncHelper.Schedule("OpenSesame.PlayerDeath", async () => playerHorn.Remove(@event.Player.SteamId));
+			playerHorn.Remove(@event.Player.SteamId);
 			return Task.CompletedTask;
 		}
 
 		[EventListener(Priority = EventListenerPriority.Highest)]
 		public Task HandleEventAsync(object? sender, UnturnedPlayerDisconnectedEvent @event)
 		{
-			AsyncHelper.Schedule("OpenSesame.PlayerDeath", async () => playerHorn.Remove(@event.Player.SteamId));
+			playerHorn.Remove(@event.Player.SteamId);
 			return Task.CompletedTask;
 		}
 	}

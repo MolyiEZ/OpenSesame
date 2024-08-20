@@ -1,5 +1,5 @@
-internal:
-  not_in_distance: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | <color=red>You are too far away from the door to close it</color>. (<color=red>You can not close it again</color>)"
-  gate_not_found: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | <color=red>The gate that you tried to close doesn't exists</color>."
-  gate_opened: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | The gate <color=green>opens</color> as you horn your vehicle! The next horn will close it."
-  gate_closed: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | The gate <color=red>closes</color> as you horn your vehicle!"
+NotInDistance: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | <color=red>You are too far away from the door to close it</color>. (<color=red>You can not close it again</color>)"
+GateIsClosed: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | <color=red>The gate that you tried to close is already closed</color>."
+GateNotFound: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | <color=red>The gate that you tried to close doesn't exists</color>."
+GateOpened: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | The gate <color=green>opens</color> as you horn your vehicle! The next horn will close it."
+GateClosed: "<color=#FFFFFF>| <color=#A239CA>OpenSesame</color> | The gate <color=red>closes</color> as you horn your vehicle!"

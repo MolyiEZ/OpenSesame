@@ -1,3 +1,3 @@
-permission_horn: "opensesame.horn"
-distance_horn: 15
-cancel_horn: true
+HornPermission: "opensesame.horn"
+HornDistance: 15
+HornCancel: true

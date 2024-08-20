@@ -7,6 +7,11 @@ using OpenMod.API.Plugins;
 using OpenMod.API.Permissions;
 using Molyi.OpenSesame.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Molyi.OpenSesame.Models;
+using System.Collections.Generic;
+using Steamworks;
+using SDG.Unturned;
+using UnityEngine;
 
 [assembly: PluginMetadata("Molyi.OpenSesame", Author = "Molyi", DisplayName = "OpenSesame")]
 namespace Molyi.OpenSesame
@@ -18,7 +23,10 @@ namespace Molyi.OpenSesame
 		private readonly ILogger<OpenSesamePlugin> m_Logger;
 		private readonly IServiceProvider m_ServiceProvider;
 
-        public OpenSesamePlugin(
+		public readonly Config config = new();
+		public readonly Dictionary<CSteamID, BarricadeDrop> playerHorn = [];
+
+		public OpenSesamePlugin(
 			IConfiguration configuration,
             IPermissionRegistry permissionRegistry,
             ILogger<OpenSesamePlugin> logger,
@@ -28,11 +36,13 @@ namespace Molyi.OpenSesame
             m_PermissionRegistry = permissionRegistry;
 			m_Logger = logger;
 			m_ServiceProvider = serviceProvider;
+			m_Configuration.Bind(config);
+			playerHorn = [];
 		}
 
         protected override UniTask OnLoadAsync()
 		{ 
-			m_PermissionRegistry.RegisterPermission(this, m_Configuration["permission_horn"]!, "Permission used to open a garage door with the horn of your vehicle");
+			m_PermissionRegistry.RegisterPermission(this, config.HornPermission, "Permission used to open a garage door with the horn of your vehicle");
 			m_ServiceProvider.GetRequiredService<IEventSender>();
 
 			m_Logger.LogInformation($"{DisplayName} has been loaded!");

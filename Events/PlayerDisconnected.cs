@@ -7,7 +7,6 @@ using SDG.Unturned;
 using Steamworks;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Molyi.OpenSesame.Events
 {

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 using Molyi.OpenSesame.Models;
 using OpenMod.API.Eventing;
 using OpenMod.API.Permissions;

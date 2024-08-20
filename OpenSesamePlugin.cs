@@ -11,9 +11,8 @@ using Molyi.OpenSesame.Models;
 using System.Collections.Generic;
 using Steamworks;
 using SDG.Unturned;
-using UnityEngine;
 
-[assembly: PluginMetadata("Molyi.OpenSesame", Author = "Molyi", DisplayName = "OpenSesame")]
+[assembly: PluginMetadata("Molyi.OpenSesame", Author = "Molyi", DisplayName = "OpenSesame", Description = "Unturned OpenMod Plugin. Open gates automatically with your car.", Website = "https://github.com/MolyiEZ/OpenSesame")]
 namespace Molyi.OpenSesame
 {
 	public class OpenSesamePlugin : OpenModUnturnedPlugin

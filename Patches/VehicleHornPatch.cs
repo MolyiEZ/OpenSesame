@@ -12,7 +12,7 @@ using Molyi.OpenSesame.Models;
 namespace Molyi.OpenSesame.Patches
 {
 	[HarmonyPatch]
-	[ServiceImplementation(Lifetime = ServiceLifetime.Singleton)]
+	[PluginServiceImplementation(Lifetime = ServiceLifetime.Singleton)]
 	public class VehicleHornPatch : IEventSender
 	{
 		private static readonly ClientStaticMethod<uint> SendVehicleHorn = ClientStaticMethod<uint>.Get(VehicleManager.ReceiveVehicleHorn);

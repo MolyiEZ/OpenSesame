@@ -1,25 +1,22 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Molyi.OpenSesame.Interfaces;
 using OpenMod.API.Eventing;
-using OpenMod.API.Plugins;
 using OpenMod.Core.Eventing;
 using OpenMod.Unturned.Players.Connections.Events;
-using SDG.Unturned;
-using Steamworks;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Molyi.OpenSesame.Events
 {
 	[EventListenerLifetime(ServiceLifetime.Singleton)]
 	public class PlayerDisconnected(
-		IPluginAccessor<OpenSesamePlugin> plugin) : IEventListener<UnturnedPlayerDisconnectedEvent>
+		IHornManager hornManager) : IEventListener<UnturnedPlayerDisconnectedEvent>
 	{
-		private Dictionary<CSteamID, BarricadeDrop> playerHorn = plugin.Instance?.playerHorn!;
+		private readonly IHornManager m_HornManager = hornManager;
 
 		[EventListener(Priority = EventListenerPriority.Highest)]
 		public Task HandleEventAsync(object? sender, UnturnedPlayerDisconnectedEvent @event)
 		{
-			playerHorn.Remove(@event.Player.SteamId);
+			m_HornManager.PlayerHorn.Remove(@event.Player.SteamId);
 			return Task.CompletedTask;
 		}
 	}

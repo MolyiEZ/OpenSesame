@@ -1,3 +1,6 @@
+# The permission that the player needs to open a gate with the horn
 HornPermission: "opensesame.horn"
+# The max distance to close the door with the horn
 HornDistance: 15
+# If the horn sound should be cancelled when opening/closing the gate
 HornCancel: true

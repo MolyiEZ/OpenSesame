@@ -1,33 +1,31 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Cysharp.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
+using Molyi.OpenSesame.Interfaces;
 using Molyi.OpenSesame.Models;
+using Molyi.OpenSesame.Models.Events;
 using OpenMod.API.Eventing;
 using OpenMod.API.Permissions;
-using OpenMod.API.Plugins;
 using OpenMod.Core.Eventing;
 using OpenMod.Unturned.Users;
 using SDG.Unturned;
-using Steamworks;
-using Color = System.Drawing.Color;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using Microsoft.Extensions.DependencyInjection;
-using Cysharp.Threading.Tasks;
+using Color = System.Drawing.Color;
 
 namespace Molyi.OpenSesame.Events
 {
 	[EventListenerLifetime(ServiceLifetime.Singleton)]
 	public class VehicleHorn(
-		IPluginAccessor<OpenSesamePlugin> plugin,
+		IHornManager hornManager,
 		IPermissionChecker permissionChecker,
 		IStringLocalizer localizer) : IEventListener<UnturnedVehicleHornEvent>
 	{
+		private readonly string imgUrl = "https://imgur.com/GDwj1Tk.png";
 		private readonly IPermissionChecker m_PermissionChecker = permissionChecker;
 		private readonly IStringLocalizer m_Localizer = localizer;
-
-		private readonly string imgUrl = "https://imgur.com/GDwj1Tk.png";
-		private readonly Config m_Config = plugin.Instance?.config!;
-		private readonly Dictionary<CSteamID, BarricadeDrop> playerHorn = plugin.Instance?.playerHorn!;
+		private readonly IHornManager m_HornManager = hornManager;
+		private readonly Config m_Config = hornManager.Config;
 
 		[EventListener(Priority = EventListenerPriority.Lowest)]
 		public async Task HandleEventAsync(object? sender, UnturnedVehicleHornEvent @event)
@@ -36,9 +34,9 @@ namespace Molyi.OpenSesame.Events
 			InteractableVehicle iVehicle = @event.Vehicle;
 
 			if (await m_PermissionChecker.CheckPermissionAsync(uUser, m_Config.HornPermission) != PermissionGrantResult.Grant) return;
-			if (playerHorn.TryGetValue(uUser.SteamId, out BarricadeDrop bDrop))
+			if (m_HornManager.PlayerHorn.TryGetValue(uUser.SteamId, out BarricadeDrop bDrop))
 			{
-				playerHorn.Remove(uUser.SteamId);
+				m_HornManager.PlayerHorn.Remove(uUser.SteamId);
 
 				if (bDrop == null || !bDrop.model.gameObject.activeSelf)
 				{
@@ -76,7 +74,7 @@ namespace Molyi.OpenSesame.Events
 			if (bDrop == null || bDrop.asset.build != EBuild.GATE || (bDrop.GetServersideData().owner != uUser.SteamId.m_SteamID && bDrop.GetServersideData().group != uUser.Player.Player.quests.groupID.m_SteamID)) return;
 			@event.IsCancelled = m_Config.HornCancel;
 			BarricadeManager.ServerSetDoorOpen((InteractableDoor)bDrop.interactable, true);
-			playerHorn.Add(uUser.SteamId, bDrop);
+			m_HornManager.PlayerHorn.Add(uUser.SteamId, bDrop);
 			await uUser.PrintMessageAsync(m_Localizer["GateOpened"], Color.White, true, imgUrl);
 		}
 	}

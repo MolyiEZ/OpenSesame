@@ -3,9 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <LangVersion>latest</LangVersion>
     <PackageTags>openmod openmod-plugin unturned</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateNugetPackage>true</GenerateNugetPackage>
     <AssemblyName>Molyi.OpenSesame</AssemblyName>
     <RootNamespace>Molyi.OpenSesame</RootNamespace>
     <PackageId>Molyi.OpenSesame</PackageId>
@@ -15,6 +14,8 @@
     <RepositoryUrl>https://github.com/MolyiEZ/OpenSesame</RepositoryUrl>
     <PackageProjectUrl>https://github.com/MolyiEZ/OpenSesame</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateNugetPackage>true</GenerateNugetPackage>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <NoWarn>$(NoWarn);NU1701;NU1702;CS0436</NoWarn>

@@ -64,11 +64,11 @@ namespace Molyi.OpenSesame.Events
 
 			if (!Physics.Raycast(iVehicle.transform.position, iVehicle.transform.forward, out RaycastHit hit, m_Config.HornDistance, RayMasks.BLOCK_COLLISION) &&
 				!Physics.Raycast(iVehicle.transform.position, -iVehicle.transform.forward, out hit, m_Config.HornDistance, RayMasks.BLOCK_COLLISION))
-				return;
+				return;	
 
 			Transform hitTransform = hit.transform;
-			InteractableDoorHinge doorHinge = hit.transform.GetComponent<InteractableDoorHinge>();
-			if (doorHinge != null) hitTransform = doorHinge.door.transform;
+			InteractableDoor door = hitTransform.GetComponent<InteractableDoor>() ?? hitTransform.GetComponentInParent<InteractableDoor>();
+			if (door != null) hitTransform = door.transform;
 
 			bDrop = BarricadeManager.FindBarricadeByRootTransform(hitTransform);
 			if (bDrop == null || bDrop.asset.build != EBuild.GATE || (bDrop.GetServersideData().owner != uUser.SteamId.m_SteamID && bDrop.GetServersideData().group != uUser.Player.Player.quests.groupID.m_SteamID)) return;
